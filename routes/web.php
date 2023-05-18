@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\IngatlanokController;
+use App\Http\Controllers\KategoriakController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,7 +19,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::apiResource('/api/ingatlanok', IngatlanokController::class)->only('index', 'store', 'destroy');
+Route::apiResource('/api/kategoriak', KategoriakController::class)->only('index');
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -28,4 +31,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
